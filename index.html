@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Propose Day Sabaina 💐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #ffe4e6 100%);
+            overflow-x: hidden;
+            color: #831843;
+        }
+
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.6;
+            animation: float 12s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 25px 20px;
+            max-width: 100%;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(219, 39, 119, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #db2777;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #db2777;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #be185d;
+            margin-bottom: 15px;
+        }
+
+        .insta-note {
+            background: linear-gradient(135deg, #f9a8d4, #f472b6);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .photo-box {
+            margin: 15px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(219, 39, 119, 0.2);
+            border: 3px solid white;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #f9a8d4;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: #db2777;
+            transform: scale(1.2);
+        }
+
+        .message {
+            font-size: 1rem;
+            color: #9d174d;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        .btn {
+            border: none;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            margin: 8px;
+            transition: transform 0.2s;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
+            color: white;
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #9ca3af;
+            border: 2px solid #e5e7eb;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-box {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+
+        .prog-dot {
+            width: 25px;
+            height: 5px;
+            background: #fce7f3;
+            border-radius: 3px;
+        }
+
+        .prog-dot.correct { background: #22c55e; }
+        .prog-dot.wrong { background: #ef4444; }
+        .prog-dot.current { background: #db2777; }
+
+        .question {
+            font-size: 1.1rem;
+            color: #831843;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .option {
+            background: #fdf2f8;
+            border: 2px solid transparent;
+            padding: 12px;
+            margin: 6px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #9d174d;
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+
+        .option.correct {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+
+        .option.wrong {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        #drawCanvas {
+            width: 100%;
+            height: 250px;
+            border: 3px dashed #f9a8d4;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #fff5f7, #fff0f5);
+            touch-action: none;
+        }
+
+        .shake-box {
+            background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 15px 0;
+            border: 3px solid #f9a8d4;
+            cursor: pointer;
+        }
+
+        .shake-icon {
+            font-size: 3rem;
+            animation: shake 2s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        .hidden-msg {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.5s;
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            color: #db2777;
+            font-weight: 600;
+        }
+
+        .hidden-msg.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .qr-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+        }
+
+        .final-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            min-height: 80px;
+        }
+
+        #yesBtn {
+            transform-origin: center;
+        }
+
+        #noBtn.moving {
+            position: fixed !important;
+            z-index: 1000;
+        }
+
+        .success {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #fce7f3, #ffe4e6);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .success.active {
+            display: flex;
+        }
+
+        .success-box {
+            background: white;
+            border-radius: 25px;
+            padding: 30px 25px;
+            max-width: 400px;
+            box-shadow: 0 25px 50px rgba(219, 39, 119, 0.2);
+        }
+
+        .big-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1) rotate(-5deg); }
+            50% { transform: scale(1.2) rotate(5deg); }
+        }
+
+        .game-area {
+            background: linear-gradient(180deg, #fff1f2 0%, #ffe4e6 100%);
+            border-radius: 15px;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #f9a8d4;
+            margin: 15px 0;
+            touch-action: none;
+        }
+
+        .basket {
+            position: absolute;
+            bottom: 10px;
+            width: 50px;
+            height: 40px;
+            background: linear-gradient(135deg, #f472b6, #db2777);
+            border-radius: 0 0 15px 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .basket::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -3px;
+            right: -3px;
+            height: 12px;
+            background: #db2777;
+            border-radius: 8px;
+        }
+
+        .falling-heart {
+            position: absolute;
+            font-size: 1.3rem;
+        }
+
+        .game-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            gap: 10px;
+        }
+
+        .touch-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #f472b6, #ec4899);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            touch-action: manipulation;
+        }
+
+        .touch-btn:active {
+            transform: scale(0.95);
+        }
+
+        .typing-text {
+            border-right: 3px solid #db2777;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(40) 1s 1 normal both, blink 1s steps(1) infinite;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        .love-meter {
+            margin: 20px 0;
+        }
+
+        .meter-bar {
+            height: 30px;
+            background: #fce7f3;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f472b6, #db2777);
+            width: 0%;
+            transition: width 1s ease;
+            border-radius: 15px;
+        }
+
+        .meter-text {
+            margin-top: 10px;
+            color: #db2777;
+            font-weight: 600;
+        }
+
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-bg" id="heartsBg"></div>
+
+    <div class="container">
+        <div class="card">
+            
+            <!-- INTRO -->
+            <div class="section active" id="introSection">
+                <div class="insta-note">💌 We met on Instagram, but my heart knew instantly</div>
+                <h1>Happy Propose Day 💐</h1>
+                <p class="subtitle">Sabaina, I have something special to ask you 💖</p>
+                
+                <div class="photo-box">
+                    <img id="mainPhoto" src="https://i.postimg.cc/KvrrDfj3/IMG-20260208-132936-0683.jpg" alt="Sabaina">
+                </div>
+                <div class="photo-dots" id="photoDots"></div>
+                
+                <p class="message">
+                    Even though we've only met through Instagram, you've become my everything. 
+                    Every message makes my day brighter. Will you make me the happiest person?
+                </p>
+                
+                <button class="btn btn-primary" onclick="goToQuiz()">Start Our Journey 💕</button>
+            </div>
+
+            <!-- QUIZ -->
+            <div class="section" id="quizSection">
+                <h2>Our Love Quiz 💕</h2>
+                <p class="subtitle">Test how well you know me</p>
+                
+                <div class="progress-bar" id="progressBar"></div>
+                
+                <div class="quiz-box" id="quizBox">
+                    <div class="question" id="questionText"></div>
+                    <div id="optionsContainer"></div>
+                </div>
+                
+                <div id="quizDone" style="display:none;">
+                    <div style="font-size: 2.5rem; margin: 10px 0;">🎉</div>
+                    <p style="color: #db2777; font-size: 1.2rem; font-weight: 600;">Score: <span id="scoreVal">0</span>/4</p>
+                    <button class="btn btn-primary" onclick="goToGame()" style="margin-top:15px;">Next: Catch the Hearts 💕</button>
+                </div>
+            </div>
+
+            <!-- GAME -->
+            <div class="section" id="gameSection">
+                <h2>Catch the Love 💕</h2>
+                <p class="subtitle">Catch 10 hearts to proceed! Use buttons below</p>
+                
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; padding:0 10px;">
+                    <span style="color:#db2777; font-weight:600;">Score: <span id="gameScore">0</span>/10</span>
+                    <span style="color:#db2777; font-weight:600;">❤️ <span id="lives">3</span></span>
+                </div>
+                
+                <div class="game-area" id="gameArea">
+                    <div class="basket" id="basket">🧺</div>
+                </div>
+                
+                <div class="game-controls">
+                    <button class="touch-btn" onmousedown="moveLeft()" onmouseup="stopMove()" ontouchstart="moveLeft()" ontouchend="stopMove()">←</button>
+                    <button class="btn btn-primary" onclick="startGame()" id="startBtn" style="margin:0; flex:2;">Start Game</button>
+                    <button class="touch-btn" onmousedown="moveRight()" onmouseup="stopMove()" ontouchstart="moveRight()" ontouchend="stopMove()">→</button>
+                </div>
+                
+                <button class="btn btn-primary" id="gameNext" style="display:none; margin-top:15px;" onclick="goToDraw()">Next Challenge 💕</button>
+            </div>
+
+            <!-- DRAW -->
+            <div class="section" id="drawSection">
+                <h2>Draw a Heart 💕</h2>
+                <p class="subtitle">Draw a heart with your finger to unlock</p>
+                
+                <canvas id="drawCanvas"></canvas>
+                <p style="color: #ec4899; margin-top: 8px; font-size: 0.9rem;">Draw a heart shape ✨</p>
+                
+                <div style="margin-top: 15px;">
+                    <button class="btn btn-secondary" onclick="clearCanvas()">Clear</button>
+                    <button class="btn btn-primary" id="drawNext" style="display:none;" onclick="goToShake()">Next 💕</button>
+                </div>
+            </div>
+
+            <!-- SHAKE -->
+            <div class="section" id="shakeSection">
+                <h2>Shake to Reveal 💕</h2>
+                <p class="subtitle">Shake your phone or tap the box!</p>
+                
+                <div class="shake-box" onclick="revealMessage()">
+                    <div class="shake-icon">📱</div>
+                    <p style="color: #831843; font-weight: 600; margin-top: 10px;">Shake or Tap!</p>
+                </div>
+                
+                <div class="hidden-msg" id="secretMsg">
+                    💕 I love you more every day 💕<br>
+                    You are my everything, Sabaina 🌹
+                </div>
+                
+                <button class="btn btn-primary" id="shakeNext" style="display:none; margin-top:15px;" onclick="goToQR()">Next 💕</button>
+            </div>
+
+            <!-- QR CODE -->
+            <div class="section" id="qrSection">
+                <h2>Secret Message 💕</h2>
+                <p class="subtitle">Scan this QR code with your camera</p>
+                
+                <div class="qr-box">
+                    <svg class="qr-code" viewBox="0 0 200 200" id="qrSvg">
+                        <!-- QR Code Pattern -->
+                        <rect fill="white" x="0" y="0" width="200" height="200"/>
+                        <rect fill="#db2777" x="20" y="20" width="50" height="50"/>
+                        <rect fill="white" x="30" y="30" width="30" height="30"/>
+                        <rect fill="#db2777" x="40" y="40" width="10" height="10"/>
+                        <rect fill="#db2777" x="130" y="20" width="50" height="50"/>
+                        <rect fill="white" x="140" y="30" width="30" height="30"/>
+                        <rect fill="#db2777" x="150" y="40" width="10" height="10"/>
+                        <rect fill="#db2777" x="20" y="130" width="50" height="50"/>
+                        <rect fill="white" x="30" y="140" width="30" height="30"/>
+                        <rect fill="#db2777" x="40" y="150" width="10" height="10"/>
+                        <rect fill="#db2777" x="85" y="20" width="10" height="10"/>
+                        <rect fill="#db2777" x="105" y="20" width="10" height="10"/>
+                        <rect fill="#db2777" x="85" y="40" width="10" height="10"/>
+                        <rect fill="#db2777" x="95" y="30" width="10" height="10"/>
+                        <rect fill="#db2777" x="105" y="40" width="10" height="10"/>
+                        <rect fill="#db2777" x="20" y="85" width="10" height="10"/>
+                        <rect fill="#db2777" x="40" y="85" width="10" height="10"/>
+                        <rect fill="#db2777" x="30" y="95" width="10" height="10"/>
+                        <rect fill="#db2777" x="50" y="95" width="10" height="10"/>
+                        <rect fill="#db2777" x="20" y="105" width="10" height="10"/>
+                        <rect fill="#db2777" x="40" y="105" width="10" height="10"/>
+                        <rect fill="#db2777" x="85" y="85" width="30" height="30"/>
+                        <rect fill="white" x="95" y="95" width="10" height="10"/>
+                        <rect fill="#db2777" x="130" y="85" width="10" height="10"/>
+                        <rect fill="#db2777" x="150" y="85" width="10" height="10"/>
+                        <rect fill="#db2777" x="140" y="95" width="10" height="10"/>
+                        <rect fill="#db2777" x="160" y="95" width="10" height="10"/>
+                        <rect fill="#db2777" x="130" y="105" width="10" height="10"/>
+                        <rect fill="#db2777" x="150" y="105" width="10" height="10"/>
+                        <rect fill="#db2777" x="170" y="105" width="10" height="10"/>
+                        <rect fill="#db2777" x="85" y="130" width="10" height="10"/>
+                        <rect fill="#db2777" x="105" y="130" width="10" height="10"/>
+                        <rect fill="#db2777" x="95" y="140" width="10" height="10"/>
+                        <rect fill="#db2777" x="85" y="150" width="10" height="10"/>
+                        <rect fill="#db2777" x="105" y="150" width="10" height="10"/>
+                        <
